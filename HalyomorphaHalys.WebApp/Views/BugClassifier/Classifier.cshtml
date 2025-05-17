@@ -1,0 +1,41 @@
+﻿@model HalyomorphaHalys.WebApp.Models.TestImage
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string ClearText(string text)
+    {
+        return text.Replace("ü", "u").Replace("ı", "i").Replace("ö", "o").Replace("ü", "u").Replace("ş", "s").Replace("ğ", "g").Replace("ç", "c").Replace("Ü", "U").Replace("İ", "I").Replace("Ö", "O").Replace("Ü", "U").Replace("Ş", "S").Replace("Ğ", "G").Replace("Ç", "C").Replace(" ", "").ToLower();
+    }
+}
+@{
+    ViewBag.Title = "Classifier";
+    string cultivarName = ViewBag.Result;
+    string clearCultivarName = ClearText(cultivarName);
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h3 class="text-center title-2">Classifier</h3>
+            </div>
+            <hr>
+
+
+            <div class="form-group">
+                <label class="control-label mb-1">Uploaded Image</label>
+                <img class="form-control" src="@("/Content/TestImages/"+Model.ImageName)" style="width:400px;height:400px" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label mb-1">Predicted Label</label>
+                <label class="form-control">
+                    @Html.ActionLink(cultivarName, "CultivarDetails", new { cultivarname = clearCultivarName })
+                </label>
+            </div>
+        </div>
+        <div class="card-footer">
+            @Html.ActionLink("Upload new photo", "UploadImage", null, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-sm" })
+        </div>
+    </div>
+</div>

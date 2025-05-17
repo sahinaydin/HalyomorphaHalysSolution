@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "UploadImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h3 class="text-center title-2">Upload</h3>
+            </div>
+            <hr>
+            @using (Html.BeginForm("UploadImage", "BugClassifier", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary();
+                <div class="form-group">
+                    <label for="photo" class="control-label mb-1">Upload one hazelnut bug photo using this form</label>
+                    <input type="file" name="photo" class="form-control" />
+                </div>
+                <div>
+                    <button id="Upload" type="submit" class="btn btn-lg btn-info btn-block">
+                        <i class="fa fa-send fa-lg"></i>&nbsp;
+                        <span id="payment-button-amount">Upload</span>
+                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                    </button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HalyomorphaHalys.MobileApp.Pages.AboutPage"
+              xmlns:vm="clr-namespace:HalyomorphaHalys.MobileApp.ViewModels"
+             Title="{Binding Title}"
+             >
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="Black" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView VerticalOptions="FillAndExpand">
+                    <Image Source="intala_logo.png" VerticalOptions="Center" HeightRequest="90" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="Agriculture and Livestock" FontSize="Title"/>
+                <Label Text="Intelligent Agriculture and Livestock Applications Laboratory (INTALA LAB) specializes on developing intelligent and innovative applications for agriculture and livestock services. It aims to be a hub for agriculture and livestock research across open data, linked open data, semantic web, ontology, wireless sensor networks, IoT, and service oriented architecture. The group brings together academics from different universities, non-academic advisors, and graduate students.!" FontSize="16" Padding="0,0,0,0"/>
+                <Label Text="Kind Regards,"></Label>
+                <Label Text="Assist. Prof. Dr. Şahin Aydın"></Label>
+                <Label Text="Founder and Principal Researcher of INTALA LAB"></Label>
+                <Label FontSize="16" Padding="0,24,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Learn more at "/>
+                                <Span Text="https://intalalab.com/" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Margin="0,10,0,0" 
+                     Text="Learn more"
+                     Command="{Binding OpenWebCommand}"
+                     TextColor="White"
+                     HorizontalOptions="FillAndExpand"
+                     FontAttributes="Bold" 
+                     FontSize="Small" 
+                     BackgroundColor="#088da5"/>
+            </StackLayout>
+
+        </ScrollView>
+        <StackLayout Grid.Row="2" VerticalOptions="End" Orientation="Vertical" BackgroundColor="#000000" Padding="5">
+            <Label Text="© Copyright 2022. All Rights Reserved." HorizontalTextAlignment="Center" TextColor="White" FontSize="12" />
+            <Label Text="Developed by INTALA LAB" HorizontalTextAlignment="Center" TextColor="White" FontSize="12" FontAttributes="Bold"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

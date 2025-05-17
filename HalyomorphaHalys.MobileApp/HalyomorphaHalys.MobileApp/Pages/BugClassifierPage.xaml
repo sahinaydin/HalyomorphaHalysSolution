@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HalyomorphaHalys.MobileApp.Pages.BugClassifierPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" BackgroundColor="Black" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView VerticalOptions="FillAndExpand">
+                    <Image Source="intala_logo.png" VerticalOptions="Center" HeightRequest="90" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Orientation="Vertical" Grid.Row="1">
+            <StackLayout>
+                <StackLayout Padding="5" VerticalOptions="StartAndExpand" Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button TextColor="White"  HorizontalOptions="FillAndExpand"
+                FontAttributes="Bold" FontSize="Small" BackgroundColor="#088da5" Text="Take Photo" x:Name="btnOpenCamera" Clicked="btnOpenCamera_Clicked"></Button>
+                    <Button TextColor="White"  
+                FontAttributes="Bold" FontSize="Small" HorizontalOptions="FillAndExpand"  
+                BackgroundColor="#088da5" Text="Classify" x:Name="btnClassify" IsEnabled="False" Clicked="btnClassify_Clicked"></Button>
+                    <Button TextColor="White"  
+                FontAttributes="Bold" FontSize="Small" HorizontalOptions="FillAndExpand"  
+                BackgroundColor="#088da5" Text="Cultivar Details" x:Name="btnCultivar" IsEnabled="false" Clicked="btnCultivar_Clicked">
+                    </Button>
+                </StackLayout>
+                <StackLayout>
+                    <StackLayout Padding="5" Margin="0" HorizontalOptions="Center">
+                        <Label x:Name="txtResult" 
+                           FontAttributes="Bold" 
+                           FontSize="Small" 
+                           HorizontalOptions="FillAndExpand"
+                           ></Label>
+                        <ActivityIndicator x:Name="loadingSpinner" 
+                                       IsVisible="false" 
+                                       Color="Orange"></ActivityIndicator>
+                    </StackLayout>
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Image x:Name="Photo" Source="image_placeholder.png"></Image>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <StackLayout VerticalOptions="End" Orientation="Vertical" BackgroundColor="#000000" Padding="5" Grid.Row="2">
+            <Label Text="© Copyright 2022. All Rights Reserved." HorizontalTextAlignment="Center" TextColor="White" FontSize="12" />
+            <Label Text="Developed by INTALA LAB" HorizontalTextAlignment="Center" TextColor="White" FontSize="12" FontAttributes="Bold"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

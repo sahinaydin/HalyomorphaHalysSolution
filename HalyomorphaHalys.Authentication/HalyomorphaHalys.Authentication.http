@@ -1,0 +1,6 @@
+@HalyomorphaHalys.Authentication_HostAddress = http://localhost:5221
+
+GET {{HalyomorphaHalys.Authentication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

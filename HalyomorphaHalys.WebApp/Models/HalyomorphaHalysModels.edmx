@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HazelnutBugDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BugDensityNotifications">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="NotificationLatitude" Type="decimal" Precision="12" Scale="10" />
+          <Property Name="NotificationLongitude" Type="decimal" Precision="12" Scale="10" />
+          <Property Name="NotificationCount" Type="int" />
+          <Property Name="NotificationDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TestImages">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ImageTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageFile" Type="image" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BugDensityNotifications_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="BugDensityNotifications" Type="Self.BugDensityNotifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BugDensityNotifications">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestImages_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="TestImages" Type="Self.TestImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TestImages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HazelnutBugDbModelStoreContainer">
+          <EntitySet Name="BugDensityNotifications" EntityType="Self.BugDensityNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestImages" EntityType="Self.TestImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BugDensityNotifications_UserId" Association="Self.FK_BugDensityNotifications_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BugDensityNotifications" EntitySet="BugDensityNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestImages_UserId" Association="Self.FK_TestImages_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TestImages" EntitySet="TestImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HazelnutBugDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BugDensityNotification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="NotificationLatitude" Type="Decimal" Precision="12" Scale="10" />
+          <Property Name="NotificationLongitude" Type="Decimal" Precision="12" Scale="10" />
+          <Property Name="NotificationCount" Type="Int32" />
+          <Property Name="NotificationDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_BugDensityNotifications_UserId" FromRole="BugDensityNotifications" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TestImage">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ImageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_TestImages_UserId" FromRole="TestImages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BugDensityNotifications" Relationship="Self.FK_BugDensityNotifications_UserId" FromRole="Users" ToRole="BugDensityNotifications" />
+          <NavigationProperty Name="TestImages" Relationship="Self.FK_TestImages_UserId" FromRole="Users" ToRole="TestImages" />
+        </EntityType>
+        <Association Name="FK_BugDensityNotifications_UserId">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="BugDensityNotifications" Type="Self.BugDensityNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BugDensityNotifications">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestImages_UserId">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="TestImages" Type="Self.TestImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TestImages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HazelnutBugDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BugDensityNotifications" EntityType="Self.BugDensityNotification" />
+          <EntitySet Name="TestImages" EntityType="Self.TestImage" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_BugDensityNotifications_UserId" Association="Self.FK_BugDensityNotifications_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BugDensityNotifications" EntitySet="BugDensityNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestImages_UserId" Association="Self.FK_TestImages_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TestImages" EntitySet="TestImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HazelnutBugDbModelStoreContainer" CdmEntityContainer="HazelnutBugDbEntities">
+          <EntitySetMapping Name="BugDensityNotifications">
+            <EntityTypeMapping TypeName="HazelnutBugDbModel.BugDensityNotification">
+              <MappingFragment StoreEntitySet="BugDensityNotifications">
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NotificationLatitude" ColumnName="NotificationLatitude" />
+                <ScalarProperty Name="NotificationLongitude" ColumnName="NotificationLongitude" />
+                <ScalarProperty Name="NotificationCount" ColumnName="NotificationCount" />
+                <ScalarProperty Name="NotificationDateTime" ColumnName="NotificationDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestImages">
+            <EntityTypeMapping TypeName="HazelnutBugDbModel.TestImage">
+              <MappingFragment StoreEntitySet="TestImages">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImageTitle" ColumnName="ImageTitle" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HazelnutBugDbModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
