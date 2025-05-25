@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="HalyomorphaHalys.UWP.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HalyomorphaHalys.UWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps">
+
+    <Grid>
+        <maps:MapControl x:Name="MyMap"
+                         Loaded="MyMap_Loaded"
+                         MapServiceToken="AqmwFg9KppmIOxamznRBJ0fcJi23N7LsnMTDUqWKesFDlL-CCHcTIfGQcjS5xJFH"
+                         ZoomLevel="6"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         MapProjection="WebMercator"
+                         Style="Road"/>
+        <!-- Harita üstü Canvas Overlay -->
+        <Canvas x:Name="MapOverlayCanvas"
+            IsHitTestVisible="False"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"/>
+    </Grid>
+</Page>
